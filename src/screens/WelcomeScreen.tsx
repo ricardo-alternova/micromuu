@@ -53,7 +53,7 @@ const CowIcon = ({ size = 60, color = '#5D4037' }) => (
 
 const StarBurst = ({ color = '#CD853F' }) => (
   <Svg width="200" height="200" viewBox="0 0 200 200" style={styles.starBurst}>
-    <G opacity="0.1">
+    <G opacity={0.1}>
       {[...Array(12)].map((_, i) => (
         <Path
           key={i}

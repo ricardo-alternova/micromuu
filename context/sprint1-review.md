@@ -94,24 +94,34 @@ npm run web
 ### 6. Configure Email Link Authentication
 
 In Firebase Console:
-1. Go to Authentication > Sign-in method
-2. Enable "Email link (passwordless sign-in)"
-3. Add authorized domains:
-   - `localhost`
-   - Your production domain
-4. Configure Dynamic Links (for mobile):
-   - Create a dynamic link domain
-   - Update `app.json` with your domain
+1. Go to **Authentication > Sign-in method**
+2. Click on **Email/Password** provider
+3. Enable **"Email link (passwordless sign-in)"**
+4. Go to **Authentication > Settings > Authorized domains**
+5. Add authorized domains:
+   - `localhost` (for development)
+   - Your production domain (when deploying)
+
+**Note:** Firebase Dynamic Links is deprecated. For this app:
+- **Web**: Email links work directly - users click the link and are authenticated
+- **Mobile (Expo Go)**: Users should test via the web version, or copy the link from email and open it in the app
+- **Production mobile**: Consider implementing Universal Links (iOS) / App Links (Android) with your own domain
 
 ### 7. Testing the App
 
+**Recommended: Test on Web first** (easiest flow for email links)
+
+```bash
+npm run web
+```
+
 1. **Registration Flow:**
-   - Open the app
-   - Tap "Register here"
+   - Open the app (http://localhost:8081)
+   - Click "Register here"
    - Fill in name, last name, and email
-   - Tap "Create Account"
+   - Click "Create Account"
    - Check your email for the magic link
-   - Click the link to complete registration
+   - Click the link - it will open in browser and complete registration
    - You should see the Welcome screen
 
 2. **Login Flow:**

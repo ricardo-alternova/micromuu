@@ -11,24 +11,21 @@ import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 
 const EMAIL_STORAGE_KEY = 'emailForSignIn';
-const APP_SCHEME = process.env.EXPO_PUBLIC_APP_SCHEME || 'micromuu';
 
-// Action code settings for email link
-const getActionCodeSettings = () => ({
-  url: Platform.select({
-    web: `${window.location.origin}/auth/callback`,
-    default: `${APP_SCHEME}://auth/callback`,
-  }) as string,
-  handleCodeInApp: true,
-  iOS: {
-    bundleId: 'com.micromuu.app',
-  },
-  android: {
-    packageName: 'com.micromuu.app',
-    installApp: true,
-    minimumVersion: '12',
-  },
-});
+// For email link authentication, we use the web URL
+// On mobile, users complete sign-in by returning to the app and pasting the link
+// or by opening the web version
+const getActionCodeSettings = () => {
+  // Use web URL for the redirect - works on all platforms
+  const baseUrl = Platform.OS === 'web'
+    ? window.location.origin
+    : `https://${process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN}`;
+
+  return {
+    url: `${baseUrl}/auth/callback`,
+    handleCodeInApp: true,
+  };
+};
 
 // Store email for later verification
 const storeEmail = async (email: string): Promise<void> => {

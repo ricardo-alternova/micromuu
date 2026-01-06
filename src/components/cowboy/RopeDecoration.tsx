@@ -32,7 +32,7 @@ export const RopeDecoration: React.FC<RopeDecorationProps> = ({
                 strokeWidth="2"
                 fill="none"
                 strokeLinecap="round"
-                opacity="0.5"
+                opacity={0.5}
               />
             </Pattern>
           </Defs>
@@ -59,7 +59,7 @@ export const RopeDecoration: React.FC<RopeDecorationProps> = ({
             strokeWidth="2"
             fill="none"
             strokeLinecap="round"
-            opacity="0.4"
+            opacity={0.4}
           />
         </Svg>
       </View>
