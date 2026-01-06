@@ -20,11 +20,11 @@ interface WesternButtonProps {
 }
 
 const HorseshoeIcon = ({ color }: { color: string }) => (
-  <Svg width="20" height="20" viewBox="0 0 24 24">
+  <Svg width={20} height={20} viewBox="0 0 24 24">
     <Path
       d="M5 12 C5 6 9 3 12 3 C15 3 19 6 19 12 L19 18 L16 18 L16 12 C16 8 14 6 12 6 C10 6 8 8 8 12 L8 18 L5 18 Z"
       stroke={color}
-      strokeWidth="2"
+      strokeWidth={2}
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -33,11 +33,11 @@ const HorseshoeIcon = ({ color }: { color: string }) => (
 );
 
 const StarIcon = ({ color }: { color: string }) => (
-  <Svg width="20" height="20" viewBox="0 0 24 24">
+  <Svg width={20} height={20} viewBox="0 0 24 24">
     <Path
       d="M12 2 L14.5 9 L22 9 L16 14 L18.5 22 L12 17 L5.5 22 L8 14 L2 9 L9.5 9 Z"
       stroke={color}
-      strokeWidth="2"
+      strokeWidth={2}
       fill="none"
       strokeLinejoin="round"
     />
@@ -45,11 +45,11 @@ const StarIcon = ({ color }: { color: string }) => (
 );
 
 const ArrowIcon = ({ color }: { color: string }) => (
-  <Svg width="20" height="20" viewBox="0 0 24 24">
+  <Svg width={20} height={20} viewBox="0 0 24 24">
     <Path
       d="M5 12 L19 12 M14 7 L19 12 L14 17"
       stroke={color}
-      strokeWidth="2"
+      strokeWidth={2}
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -58,11 +58,11 @@ const ArrowIcon = ({ color }: { color: string }) => (
 );
 
 const MailIcon = ({ color }: { color: string }) => (
-  <Svg width="20" height="20" viewBox="0 0 24 24">
+  <Svg width={20} height={20} viewBox="0 0 24 24">
     <Path
       d="M3 6 L12 13 L21 6 M3 6 L3 18 L21 18 L21 6 L3 6"
       stroke={color}
-      strokeWidth="2"
+      strokeWidth={2}
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"

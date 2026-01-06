@@ -16,27 +16,27 @@ export const RopeDecoration: React.FC<RopeDecorationProps> = ({
   if (variant === 'horizontal') {
     return (
       <View style={[styles.container, { width }]}>
-        <Svg height="12" width="100%" preserveAspectRatio="xMidYMid slice">
+        <Svg height={12} width="100%" preserveAspectRatio="xMidYMid slice">
           <Defs>
-            <Pattern id="ropePattern" x="0" y="0" width="24" height="12" patternUnits="userSpaceOnUse">
+            <Pattern id="ropePattern" x={0} y={0} width={24} height={12} patternUnits="userSpaceOnUse">
               <Path
                 d="M0 6 Q6 2 12 6 Q18 10 24 6"
                 stroke={color}
-                strokeWidth="3"
+                strokeWidth={3}
                 fill="none"
                 strokeLinecap="round"
               />
               <Path
                 d="M0 6 Q6 10 12 6 Q18 2 24 6"
                 stroke={color}
-                strokeWidth="2"
+                strokeWidth={2}
                 fill="none"
                 strokeLinecap="round"
                 opacity={0.5}
               />
             </Pattern>
           </Defs>
-          <Rect x="0" y="0" width="100%" height="12" fill="url(#ropePattern)" />
+          <Rect x={0} y={0} width="100%" height={12} fill="url(#ropePattern)" />
         </Svg>
       </View>
     );
@@ -45,18 +45,18 @@ export const RopeDecoration: React.FC<RopeDecorationProps> = ({
   if (variant === 'corner') {
     return (
       <View style={styles.cornerContainer}>
-        <Svg width="40" height="40" viewBox="0 0 40 40">
+        <Svg width={40} height={40} viewBox="0 0 40 40">
           <Path
             d="M5 35 L5 10 Q5 5 10 5 L35 5"
             stroke={color}
-            strokeWidth="3"
+            strokeWidth={3}
             fill="none"
             strokeLinecap="round"
           />
           <Path
             d="M8 32 L8 13 Q8 8 13 8 L32 8"
             stroke={color}
-            strokeWidth="2"
+            strokeWidth={2}
             fill="none"
             strokeLinecap="round"
             opacity={0.4}

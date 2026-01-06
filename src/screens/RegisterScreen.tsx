@@ -29,12 +29,12 @@ const validateEmail = (email: string): boolean => {
 };
 
 const UserIcon = () => (
-  <Svg width="20" height="20" viewBox="0 0 24 24">
-    <Circle cx="12" cy="8" r="4" stroke="#8B4513" strokeWidth="2" fill="none" />
+  <Svg width={20} height={20} viewBox="0 0 24 24">
+    <Circle cx={12} cy={8} r={4} stroke="#8B4513" strokeWidth={2} fill="none" />
     <Path
       d="M4 20 C4 16 8 14 12 14 C16 14 20 16 20 20"
       stroke="#8B4513"
-      strokeWidth="2"
+      strokeWidth={2}
       fill="none"
       strokeLinecap="round"
     />
@@ -42,11 +42,11 @@ const UserIcon = () => (
 );
 
 const MailIcon = () => (
-  <Svg width="20" height="20" viewBox="0 0 24 24">
+  <Svg width={20} height={20} viewBox="0 0 24 24">
     <Path
       d="M3 6 L12 13 L21 6 M3 6 L3 18 L21 18 L21 6 L3 6"
       stroke="#8B4513"
-      strokeWidth="2"
+      strokeWidth={2}
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -55,11 +55,11 @@ const MailIcon = () => (
 );
 
 const CheckIcon = () => (
-  <Svg width="60" height="60" viewBox="0 0 24 24">
+  <Svg width={60} height={60} viewBox="0 0 24 24">
     <Path
       d="M5 12 L10 17 L19 7"
       stroke="#2E7D32"
-      strokeWidth="3"
+      strokeWidth={3}
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"

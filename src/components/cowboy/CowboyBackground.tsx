@@ -42,28 +42,28 @@ export const CowboyBackground: React.FC<CowboyBackgroundProps> = ({
             {/* Western diamond pattern */}
             <Pattern
               id="westernPattern"
-              x="0"
-              y="0"
-              width="60"
-              height="60"
+              x={0}
+              y={0}
+              width={60}
+              height={60}
               patternUnits="userSpaceOnUse"
             >
               {/* Diamond shape */}
               <Path
                 d="M30 5 L55 30 L30 55 L5 30 Z"
                 stroke={colors.pattern}
-                strokeWidth="0.5"
+                strokeWidth={0.5}
                 fill="none"
                 opacity={0.3}
               />
               {/* Small corner dots */}
-              <Circle cx="30" cy="5" r="1.5" fill={colors.pattern} opacity={0.2} />
-              <Circle cx="55" cy="30" r="1.5" fill={colors.pattern} opacity={0.2} />
-              <Circle cx="30" cy="55" r="1.5" fill={colors.pattern} opacity={0.2} />
-              <Circle cx="5" cy="30" r="1.5" fill={colors.pattern} opacity={0.2} />
+              <Circle cx={30} cy={5} r={1.5} fill={colors.pattern} opacity={0.2} />
+              <Circle cx={55} cy={30} r={1.5} fill={colors.pattern} opacity={0.2} />
+              <Circle cx={30} cy={55} r={1.5} fill={colors.pattern} opacity={0.2} />
+              <Circle cx={5} cy={30} r={1.5} fill={colors.pattern} opacity={0.2} />
             </Pattern>
           </Defs>
-          <Rect x="0" y="0" width="100%" height="100%" fill="url(#westernPattern)" />
+          <Rect x={0} y={0} width="100%" height="100%" fill="url(#westernPattern)" />
         </Svg>
       </View>
 
@@ -84,34 +84,34 @@ export const CowboyBackground: React.FC<CowboyBackgroundProps> = ({
 
         {/* Corner decorations */}
         <View style={[styles.cornerDecoration, styles.cornerTopLeft]}>
-          <Svg width="30" height="30" viewBox="0 0 30 30">
+          <Svg width={30} height={30} viewBox="0 0 30 30">
             <G opacity={0.4}>
-              <Path d="M5 25 L5 5 L25 5" stroke={colors.pattern} strokeWidth="2" fill="none" />
-              <Circle cx="5" cy="5" r="3" fill={colors.pattern} />
+              <Path d="M5 25 L5 5 L25 5" stroke={colors.pattern} strokeWidth={2} fill="none" />
+              <Circle cx={5} cy={5} r={3} fill={colors.pattern} />
             </G>
           </Svg>
         </View>
         <View style={[styles.cornerDecoration, styles.cornerTopRight]}>
-          <Svg width="30" height="30" viewBox="0 0 30 30">
+          <Svg width={30} height={30} viewBox="0 0 30 30">
             <G opacity={0.4}>
-              <Path d="M25 25 L25 5 L5 5" stroke={colors.pattern} strokeWidth="2" fill="none" />
-              <Circle cx="25" cy="5" r="3" fill={colors.pattern} />
+              <Path d="M25 25 L25 5 L5 5" stroke={colors.pattern} strokeWidth={2} fill="none" />
+              <Circle cx={25} cy={5} r={3} fill={colors.pattern} />
             </G>
           </Svg>
         </View>
         <View style={[styles.cornerDecoration, styles.cornerBottomLeft]}>
-          <Svg width="30" height="30" viewBox="0 0 30 30">
+          <Svg width={30} height={30} viewBox="0 0 30 30">
             <G opacity={0.4}>
-              <Path d="M5 5 L5 25 L25 25" stroke={colors.pattern} strokeWidth="2" fill="none" />
-              <Circle cx="5" cy="25" r="3" fill={colors.pattern} />
+              <Path d="M5 5 L5 25 L25 25" stroke={colors.pattern} strokeWidth={2} fill="none" />
+              <Circle cx={5} cy={25} r={3} fill={colors.pattern} />
             </G>
           </Svg>
         </View>
         <View style={[styles.cornerDecoration, styles.cornerBottomRight]}>
-          <Svg width="30" height="30" viewBox="0 0 30 30">
+          <Svg width={30} height={30} viewBox="0 0 30 30">
             <G opacity={0.4}>
-              <Path d="M25 5 L25 25 L5 25" stroke={colors.pattern} strokeWidth="2" fill="none" />
-              <Circle cx="25" cy="25" r="3" fill={colors.pattern} />
+              <Path d="M25 5 L25 25 L5 25" stroke={colors.pattern} strokeWidth={2} fill="none" />
+              <Circle cx={25} cy={25} r={3} fill={colors.pattern} />
             </G>
           </Svg>
         </View>

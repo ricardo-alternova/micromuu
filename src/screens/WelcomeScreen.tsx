@@ -19,47 +19,47 @@ const CowIcon = ({ size = 60, color = '#5D4037' }) => (
       <Path
         d="M8 20 Q4 12 12 8 M56 20 Q60 12 52 8"
         stroke={color}
-        strokeWidth="3"
+        strokeWidth={3}
         fill="none"
         strokeLinecap="round"
       />
       {/* Head */}
-      <Circle cx="32" cy="32" r="18" stroke={color} strokeWidth="3" fill="none" />
+      <Circle cx={32} cy={32} r={18} stroke={color} strokeWidth={3} fill="none" />
       {/* Ears */}
       <Path
         d="M16 24 Q12 20 14 16 M48 24 Q52 20 50 16"
         stroke={color}
-        strokeWidth="2"
+        strokeWidth={2}
         fill="none"
         strokeLinecap="round"
       />
       {/* Eyes */}
-      <Circle cx="26" cy="28" r="2.5" fill={color} />
-      <Circle cx="38" cy="28" r="2.5" fill={color} />
+      <Circle cx={26} cy={28} r={2.5} fill={color} />
+      <Circle cx={38} cy={28} r={2.5} fill={color} />
       {/* Nose */}
       <Path
         d="M28 38 Q32 42 36 38"
         stroke={color}
-        strokeWidth="2"
+        strokeWidth={2}
         fill="none"
         strokeLinecap="round"
       />
       {/* Nostrils */}
-      <Circle cx="29" cy="36" r="1.5" fill={color} />
-      <Circle cx="35" cy="36" r="1.5" fill={color} />
+      <Circle cx={29} cy={36} r={1.5} fill={color} />
+      <Circle cx={35} cy={36} r={1.5} fill={color} />
     </G>
   </Svg>
 );
 
 const StarBurst = ({ color = '#CD853F' }) => (
-  <Svg width="200" height="200" viewBox="0 0 200 200" style={styles.starBurst}>
+  <Svg width={200} height={200} viewBox="0 0 200 200" style={styles.starBurst}>
     <G opacity={0.1}>
       {[...Array(12)].map((_, i) => (
         <Path
           key={i}
           d={`M100 100 L${100 + 90 * Math.cos((i * 30 * Math.PI) / 180)} ${100 + 90 * Math.sin((i * 30 * Math.PI) / 180)}`}
           stroke={color}
-          strokeWidth="2"
+          strokeWidth={2}
         />
       ))}
     </G>

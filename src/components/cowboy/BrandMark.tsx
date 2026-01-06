@@ -21,19 +21,19 @@ export const BrandMark: React.FC<BrandMarkProps> = ({
         <G>
           {/* Outer circle - like a branding iron */}
           <Circle
-            cx="60"
-            cy="60"
-            r="55"
+            cx={60}
+            cy={60}
+            r={55}
             stroke={color}
-            strokeWidth="3"
+            strokeWidth={3}
             fill="none"
           />
           <Circle
-            cx="60"
-            cy="60"
-            r="48"
+            cx={60}
+            cy={60}
+            r={48}
             stroke={color}
-            strokeWidth="1.5"
+            strokeWidth={1.5}
             fill="none"
             strokeDasharray="4 2"
           />
@@ -42,7 +42,7 @@ export const BrandMark: React.FC<BrandMarkProps> = ({
           <Path
             d="M30 75 L30 45 L45 65 L60 45 L75 65 L90 45 L90 75"
             stroke={color}
-            strokeWidth="4"
+            strokeWidth={4}
             strokeLinecap="round"
             strokeLinejoin="round"
             fill="none"
@@ -52,17 +52,17 @@ export const BrandMark: React.FC<BrandMarkProps> = ({
           <Path
             d="M52 85 Q60 90 68 85 M55 82 L52 78 M65 82 L68 78"
             stroke={color}
-            strokeWidth="2"
+            strokeWidth={2}
             strokeLinecap="round"
             fill="none"
           />
-          <Circle cx="57" cy="83" r="1.5" fill={color} />
-          <Circle cx="63" cy="83" r="1.5" fill={color} />
+          <Circle cx={57} cy={83} r={1.5} fill={color} />
+          <Circle cx={63} cy={83} r={1.5} fill={color} />
 
           {/* Decorative corner marks */}
           <Path d="M20 25 L25 20 M95 20 L100 25 M20 95 L25 100 M95 100 L100 95"
             stroke={color}
-            strokeWidth="2"
+            strokeWidth={2}
             strokeLinecap="round"
           />
         </G>
