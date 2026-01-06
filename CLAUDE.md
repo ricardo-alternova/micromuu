@@ -9,9 +9,9 @@ Micromuu is a cattle inventory management app targeting Android, iOS, and Web pl
 ## Tech Stack
 
 - **Framework**: Expo with React Native and React Native Web (TypeScript)
-- **Backend**: Firebase (Firestore for database, Storage, Authentication, Notifications)
-- **Design System**: Material Design 3
-- **Internationalization**: English and Spanish (device language detection)
+- **Backend**: Firebase (Firestore, Storage, Authentication with magic links)
+- **Design System**: Material Design 3 via react-native-paper, with custom cowboy-themed components
+- **Internationalization**: i18next with English and Spanish (device language detection)
 - **Testing**: Jest for unit tests, Playwright for e2e tests
 
 ## Development Commands
@@ -21,34 +21,50 @@ Micromuu is a cattle inventory management app targeting Android, iOS, and Web pl
 npm install
 
 # Start development server
-npx expo start
+npm start
 
 # Run on specific platforms
-npx expo start --android
-npx expo start --ios
-npx expo start --web
+npm run ios
+npm run android
+npm run web
 
 # Run tests
 npm test                    # Unit tests
-npx playwright test         # E2E tests
+npm run test:coverage       # Unit tests with coverage
+npm run test:e2e           # E2E tests (requires web running)
 
 # Type checking
-npx tsc --noEmit
+npm run typecheck
+```
 
-# Linting
-npm run lint
+## Project Structure
+
+```
+src/
+  components/cowboy/    # Custom cowboy-themed UI components
+  hooks/                # useAuth, useAuthContext
+  i18n/                 # Translation files (en.json, es.json)
+  navigation/           # React Navigation setup
+  screens/              # LoginScreen, RegisterScreen, WelcomeScreen
+  services/             # Firebase, auth, profile services
+  theme/                # Material Design 3 cowboy theme
+  types/                # TypeScript type definitions
+context/                # Sprint documentation
+e2e/                    # Playwright e2e tests
 ```
 
 ## Architecture Notes
 
 - Sprint-based development tracked in `context/sprint#.md` files
-- Each sprint produces a `sprint#-plan.md` (implementation plan) and `sprint#-review.md` (completion guide with test coverage)
-- Environment variables in `.env` - never commit secrets
-- Strong Firestore security rules are a priority
-- Passwordless authentication flow
+- Each sprint produces `sprint#-plan.md` and `sprint#-review.md`
+- Environment variables in `.env` (copy from `.env.example`)
+- Firestore rules in `firestore.rules`, Storage rules in `storage.rules`
+- Passwordless authentication via Firebase email links
+- AuthProvider wraps the app providing auth state via context
 
 ## Key Constraints
 
 - All secrets must be in `.env` and never exposed
 - UI must support both English and Spanish based on device locale
 - Database and storage rules must be thoroughly secured
+- O'Saasy license - allows use but not competing SaaS offerings
