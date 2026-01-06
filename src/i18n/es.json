@@ -1,0 +1,60 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrio un error",
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "done": "Listo"
+  },
+  "auth": {
+    "login": "Iniciar Sesion",
+    "logout": "Cerrar Sesion",
+    "register": "Crear Cuenta",
+    "email": "Correo Electronico",
+    "emailPlaceholder": "Ingresa tu correo electronico",
+    "sendMagicLink": "Enviar Enlace Magico",
+    "magicLinkSent": "Revisa tu correo!",
+    "magicLinkSentDescription": "Hemos enviado un enlace magico a {{email}}. Haz clic en el enlace del correo para iniciar sesion.",
+    "noAccount": "No tienes una cuenta?",
+    "hasAccount": "Ya tienes una cuenta?",
+    "signInHere": "Inicia sesion aqui",
+    "registerHere": "Registrate aqui",
+    "enterEmailToComplete": "Ingresa tu correo para completar el inicio de sesion",
+    "completeSignIn": "Completar Inicio de Sesion",
+    "signInError": "Error al iniciar sesion. Por favor intenta de nuevo.",
+    "emailRequired": "El correo electronico es requerido",
+    "invalidEmail": "Por favor ingresa un correo electronico valido"
+  },
+  "registration": {
+    "title": "Crea Tu Cuenta",
+    "subtitle": "Unete a Micromuu para administrar tu inventario de ganado",
+    "name": "Nombre",
+    "namePlaceholder": "Ingresa tu nombre",
+    "lastName": "Apellido",
+    "lastNamePlaceholder": "Ingresa tu apellido",
+    "submit": "Crear Cuenta",
+    "nameRequired": "El nombre es requerido",
+    "lastNameRequired": "El apellido es requerido",
+    "success": "Cuenta creada exitosamente!",
+    "error": "Error al crear la cuenta. Por favor intenta de nuevo."
+  },
+  "welcome": {
+    "title": "Bienvenido a Micromuu!",
+    "greeting": "Hola, {{name}}!",
+    "subtitle": "Tu inventario de ganado esta listo para ser administrado",
+    "getStarted": "Comenzar",
+    "description": "Rastrea tu ganado, administra tu rancho y manten todo organizado en un solo lugar."
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "email": "Por favor ingresa un correo valido",
+    "minLength": "Debe tener al menos {{min}} caracteres",
+    "maxLength": "Debe tener como maximo {{max}} caracteres"
+  }
+}

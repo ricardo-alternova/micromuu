@@ -1,0 +1,60 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done"
+  },
+  "auth": {
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "register": "Create Account",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "sendMagicLink": "Send Magic Link",
+    "magicLinkSent": "Check your email!",
+    "magicLinkSentDescription": "We've sent a magic link to {{email}}. Click the link in the email to sign in.",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInHere": "Sign in here",
+    "registerHere": "Register here",
+    "enterEmailToComplete": "Enter your email to complete sign-in",
+    "completeSignIn": "Complete Sign In",
+    "signInError": "Failed to sign in. Please try again.",
+    "emailRequired": "Email is required",
+    "invalidEmail": "Please enter a valid email address"
+  },
+  "registration": {
+    "title": "Create Your Account",
+    "subtitle": "Join Micromuu to manage your cattle inventory",
+    "name": "First Name",
+    "namePlaceholder": "Enter your first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter your last name",
+    "submit": "Create Account",
+    "nameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "success": "Account created successfully!",
+    "error": "Failed to create account. Please try again."
+  },
+  "welcome": {
+    "title": "Welcome to Micromuu!",
+    "greeting": "Howdy, {{name}}!",
+    "subtitle": "Your cattle inventory is ready to be managed",
+    "getStarted": "Get Started",
+    "description": "Track your herd, manage your ranch, and keep everything organized in one place."
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email",
+    "minLength": "Must be at least {{min}} characters",
+    "maxLength": "Must be no more than {{max}} characters"
+  }
+}
