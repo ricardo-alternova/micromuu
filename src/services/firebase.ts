@@ -27,8 +27,8 @@ if (Platform.OS === 'web') {
   });
 }
 
-// Initialize Firestore
-const db = getFirestore(app);
+// Initialize Firestore (using named database 'micromuu')
+const db = getFirestore(app, 'micromuu');
 
 // Initialize Storage
 const storage = getStorage(app);
