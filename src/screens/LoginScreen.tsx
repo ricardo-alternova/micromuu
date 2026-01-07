@@ -69,69 +69,75 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
       <View style={styles.content}>
-        <Text variant="displaySmall" style={[styles.logo, { color: theme.colors.primary }]}>
-          Micromuu
-        </Text>
-
-        <Surface style={styles.card} elevation={2}>
-          <Text variant="headlineMedium" style={styles.title}>
-            {t('auth.login')}
+        <View style={styles.formWrapper}>
+          <Text variant="displaySmall" style={[styles.logo, { color: theme.colors.primary }]}>
+            Micromuu
           </Text>
 
-          <TextInput
-            label={t('auth.email')}
-            placeholder={t('auth.emailPlaceholder')}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoComplete="email"
-            mode="outlined"
-            error={!!error}
-            style={styles.input}
-          />
+          <Surface style={styles.card} elevation={2}>
+            <Text variant="headlineMedium" style={styles.title}>
+              {t('auth.login')}
+            </Text>
 
-          <TextInput
-            label={t('auth.password')}
-            placeholder={t('auth.passwordPlaceholder')}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!showPassword}
-            autoCapitalize="none"
-            mode="outlined"
-            error={!!error}
-            style={styles.input}
-            right={
-              <TextInput.Icon
-                icon={showPassword ? 'eye-off' : 'eye'}
-                onPress={() => setShowPassword(!showPassword)}
-              />
-            }
-          />
+            <TextInput
+              label={t('auth.email')}
+              placeholder={t('auth.emailPlaceholder')}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoComplete="email"
+              mode="outlined"
+              error={!!error}
+              style={styles.input}
+              returnKeyType="next"
+              autoFocus
+            />
 
-          {error && (
-            <HelperText type="error" visible={!!error}>
-              {error}
-            </HelperText>
-          )}
+            <TextInput
+              label={t('auth.password')}
+              placeholder={t('auth.passwordPlaceholder')}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+              autoCapitalize="none"
+              mode="outlined"
+              error={!!error}
+              style={styles.input}
+              returnKeyType="done"
+              onSubmitEditing={handleSubmit}
+              right={
+                <TextInput.Icon
+                  icon={showPassword ? 'eye-off' : 'eye'}
+                  onPress={() => setShowPassword(!showPassword)}
+                />
+              }
+            />
 
-          <Button
-            mode="contained"
-            onPress={handleSubmit}
-            loading={isLoading}
-            disabled={isLoading}
-            style={styles.button}
-          >
-            {t('auth.signIn')}
-          </Button>
+            {error && (
+              <HelperText type="error" visible={!!error}>
+                {error}
+              </HelperText>
+            )}
 
-          <View style={styles.footer}>
-            <Text variant="bodyMedium">{t('auth.noAccount')}</Text>
-            <Button mode="text" onPress={() => navigation.navigate('Register')}>
-              {t('auth.registerHere')}
+            <Button
+              mode="contained"
+              onPress={handleSubmit}
+              loading={isLoading}
+              disabled={isLoading}
+              style={styles.button}
+            >
+              {t('auth.signIn')}
             </Button>
-          </View>
-        </Surface>
+
+            <View style={styles.footer}>
+              <Text variant="bodyMedium">{t('auth.noAccount')}</Text>
+              <Button mode="text" onPress={() => navigation.navigate('Register')}>
+                {t('auth.registerHere')}
+              </Button>
+            </View>
+          </Surface>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -144,7 +150,12 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 24,
+  },
+  formWrapper: {
+    width: '100%',
+    maxWidth: 400,
   },
   logo: {
     textAlign: 'center',

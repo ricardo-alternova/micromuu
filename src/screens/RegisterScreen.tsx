@@ -94,7 +94,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.content}>
+        <View style={styles.formWrapper}>
           <Surface style={styles.card} elevation={2}>
             <Text variant="headlineMedium" style={styles.title}>
               {t('registration.title')}
@@ -112,6 +112,8 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               mode="outlined"
               error={!!errors.name}
               style={styles.input}
+              returnKeyType="next"
+              autoFocus
             />
             {errors.name && (
               <HelperText type="error" visible={!!errors.name}>
@@ -128,6 +130,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               mode="outlined"
               error={!!errors.lastName}
               style={styles.input}
+              returnKeyType="next"
             />
             {errors.lastName && (
               <HelperText type="error" visible={!!errors.lastName}>
@@ -146,6 +149,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               mode="outlined"
               error={!!errors.email}
               style={styles.input}
+              returnKeyType="next"
             />
             {errors.email && (
               <HelperText type="error" visible={!!errors.email}>
@@ -163,6 +167,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               mode="outlined"
               error={!!errors.password}
               style={styles.input}
+              returnKeyType="next"
               right={
                 <TextInput.Icon
                   icon={showPassword ? 'eye-off' : 'eye'}
@@ -181,6 +186,8 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               mode="outlined"
               error={!!errors.password}
               style={styles.input}
+              returnKeyType="done"
+              onSubmitEditing={handleSubmit}
             />
             {errors.password && (
               <HelperText type="error" visible={!!errors.password}>
@@ -217,11 +224,13 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-  },
-  content: {
-    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 24,
+  },
+  formWrapper: {
+    width: '100%',
+    maxWidth: 400,
   },
   card: {
     padding: 24,

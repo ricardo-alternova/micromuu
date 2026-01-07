@@ -33,11 +33,12 @@ export const WelcomeScreen: React.FC = () => {
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
-        <Text variant="displaySmall" style={[styles.logo, { color: theme.colors.primary }]}>
-          Micromuu
-        </Text>
+        <View style={styles.formWrapper}>
+          <Text variant="displaySmall" style={[styles.logo, { color: theme.colors.primary }]}>
+            Micromuu
+          </Text>
 
-        <Surface style={styles.card} elevation={2}>
+          <Surface style={styles.card} elevation={2}>
           <Text variant="headlineMedium" style={styles.title}>
             {t('welcome.title')}
           </Text>
@@ -66,6 +67,7 @@ export const WelcomeScreen: React.FC = () => {
             {t('auth.logout')}
           </Button>
         </Surface>
+        </View>
       </View>
     </View>
   );
@@ -78,7 +80,12 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 24,
+  },
+  formWrapper: {
+    width: '100%',
+    maxWidth: 400,
   },
   logo: {
     textAlign: 'center',
