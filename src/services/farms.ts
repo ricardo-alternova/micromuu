@@ -105,10 +105,16 @@ export const updateFarm = async (
 ): Promise<void> => {
   const farmRef = doc(db, 'farms', farmId);
 
-  await updateDoc(farmRef, {
-    ...data,
+  // Filter out undefined values (Firestore doesn't accept undefined)
+  const updateData: Record<string, any> = {
     updatedAt: serverTimestamp(),
-  });
+  };
+
+  if (data.name !== undefined) updateData.name = data.name;
+  if (data.location !== undefined) updateData.location = data.location;
+  if (data.imageUrl !== undefined) updateData.imageUrl = data.imageUrl;
+
+  await updateDoc(farmRef, updateData);
 };
 
 // Archive a farm

@@ -7,6 +7,7 @@ import {
   Avatar,
   useTheme,
   ActivityIndicator,
+  TouchableRipple,
 } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useFocusEffect } from '@react-navigation/native';
@@ -55,34 +56,35 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ navigation }) 
   };
 
   const renderFarmCard = ({ item }: { item: Farm }) => (
-    <Surface
-      style={styles.card}
-      elevation={2}
-      onTouchEnd={() => navigation.navigate('EditFarm', { farmId: item.id })}
-    >
-      <View style={styles.cardContent}>
-        {item.imageUrl ? (
-          <Avatar.Image size={48} source={{ uri: item.imageUrl }} />
-        ) : (
-          <Avatar.Icon
-            size={48}
-            icon="barn"
-            style={{ backgroundColor: theme.colors.surfaceVariant }}
-          />
-        )}
-        <View style={styles.cardText}>
-          <Text variant="titleMedium" numberOfLines={1}>
-            {item.name}
-          </Text>
-          <Text
-            variant="bodyMedium"
-            style={{ color: theme.colors.onSurfaceVariant }}
-            numberOfLines={1}
-          >
-            {item.location || t('farms.noLocation')}
-          </Text>
+    <Surface style={styles.card} elevation={2}>
+      <TouchableRipple
+        onPress={() => navigation.navigate('EditFarm', { farmId: item.id })}
+        style={styles.cardTouchable}
+      >
+        <View style={styles.cardContent}>
+          {item.imageUrl ? (
+            <Avatar.Image size={48} source={{ uri: item.imageUrl }} />
+          ) : (
+            <Avatar.Icon
+              size={48}
+              icon="barn"
+              style={{ backgroundColor: theme.colors.surfaceVariant }}
+            />
+          )}
+          <View style={styles.cardText}>
+            <Text variant="titleMedium" numberOfLines={1}>
+              {item.name}
+            </Text>
+            <Text
+              variant="bodyMedium"
+              style={{ color: theme.colors.onSurfaceVariant }}
+              numberOfLines={1}
+            >
+              {item.location || t('farms.noLocation')}
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableRipple>
     </Surface>
   );
 
@@ -182,6 +184,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginBottom: 12,
     overflow: 'hidden',
+  },
+  cardTouchable: {
+    borderRadius: 12,
   },
   cardContent: {
     flexDirection: 'row',
