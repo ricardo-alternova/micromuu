@@ -1,17 +1,20 @@
-# Micromuu
+# Micromuu Template
 
-A cattle inventory management app built with Expo, React Native, and Firebase.
+A multi-platform starter template built with Expo, React Native, and Firebase. Use this as a foundation to build your own mobile/web application.
 
-## About This Project
+## About This Template
 
-This project was created for **educational purposes** to demonstrate how to use AI-assisted coding tools to build a full-stack mobile application. The entire codebase was developed through pair programming with [Claude Code](https://claude.ai/code), showcasing how AI can assist in:
+This template provides a **ready-to-use starting point** with authentication already configured. It was created for **educational purposes** to demonstrate how to use AI-assisted coding tools to build a full-stack mobile application. The entire codebase was developed through pair programming with [Claude Code](https://claude.ai/code).
 
-- Project architecture and planning
-- Writing production-quality TypeScript code
-- Implementing authentication and database operations
-- Creating unit and E2E tests
-- Debugging and troubleshooting issues
-- Following best practices and security guidelines
+**What's included:**
+- Email/password authentication (Firebase Auth)
+- User registration with profile creation
+- Welcome screen after login
+- Bilingual support (English/Spanish)
+- Material Design 3 theming
+- Unit and E2E test setup
+
+**Start building from here** by adding your own screens, services, and features!
 
 ## Tech Stack
 
@@ -32,9 +35,8 @@ This project has been reviewed against [CVE-2025-55182, CVE-2025-55184, CVE-2025
 ## Features
 
 - Email/password authentication
-- User profile management
-- Farm CRUD operations (Create, Read, Update, Archive)
-- Farm profile pictures
+- User profile management (name storage in Firestore)
+- Welcome screen with personalized greeting
 - Bilingual support (English/Spanish based on device locale)
 - Cross-platform (iOS, Android, Web)
 
@@ -200,9 +202,8 @@ Development progress is documented in the `context/` folder:
 - `sprint1.md` - Sprint 1 requirements (Authentication)
 - `sprint1-plan.md` - Sprint 1 implementation plan
 - `sprint1-review.md` - Sprint 1 review and testing
-- `sprint2.md` - Sprint 2 requirements (Farms)
-- `sprint2-plan.md` - Sprint 2 implementation plan
-- `sprint2-review.md` - Sprint 2 review and testing
+
+> **Note:** This template branch contains only the authentication foundation (Sprint 1). See the `main` branch for the complete implementation including additional features.
 
 ## License
 

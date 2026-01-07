@@ -10,7 +10,9 @@
     "edit": "Edit",
     "back": "Back",
     "next": "Next",
-    "done": "Done"
+    "done": "Done",
+    "addImage": "Add Photo",
+    "changeImage": "Change Photo"
   },
   "auth": {
     "login": "Sign In",
@@ -64,29 +66,5 @@
     "email": "Please enter a valid email",
     "minLength": "Must be at least {{min}} characters",
     "maxLength": "Must be no more than {{max}} characters"
-  },
-  "farms": {
-    "title": "My Farms",
-    "addFarm": "Add Farm",
-    "editFarm": "Edit Farm",
-    "name": "Farm Name",
-    "namePlaceholder": "Enter farm name",
-    "nameRequired": "Farm name is required",
-    "location": "Location",
-    "locationPlaceholder": "Enter location",
-    "noLocation": "No location set",
-    "image": "Farm Photo",
-    "addImage": "Add Photo",
-    "changeImage": "Change Photo",
-    "save": "Save",
-    "archive": "Archive Farm",
-    "archiveConfirm": "Are you sure you want to archive this farm? It will no longer appear in your list.",
-    "emptyState": "No farms yet. Add your first farm!",
-    "farmCreated": "Farm created successfully",
-    "farmUpdated": "Farm updated successfully",
-    "farmArchived": "Farm archived",
-    "notFound": "Farm not found",
-    "createError": "Failed to create farm. Please try again.",
-    "updateError": "Failed to update farm. Please try again."
   }
 }

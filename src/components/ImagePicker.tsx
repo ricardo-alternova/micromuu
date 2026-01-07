@@ -58,7 +58,7 @@ export const ImagePicker: React.FC<ImagePickerProps> = ({
         ) : (
           <View style={styles.placeholder}>
             <IconButton
-              icon="barn"
+              icon="image"
               size={size * 0.4}
               iconColor={theme.colors.outline}
             />
@@ -79,7 +79,7 @@ export const ImagePicker: React.FC<ImagePickerProps> = ({
         </View>
       </View>
       <Text variant="bodySmall" style={[styles.label, { color: theme.colors.primary }]}>
-        {imageUri ? t('farms.changeImage') : t('farms.addImage')}
+        {imageUri ? t('common.changeImage') : t('common.addImage')}
       </Text>
     </TouchableOpacity>
   );

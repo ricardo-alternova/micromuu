@@ -10,7 +10,9 @@
     "edit": "Editar",
     "back": "Volver",
     "next": "Siguiente",
-    "done": "Listo"
+    "done": "Listo",
+    "addImage": "Agregar Foto",
+    "changeImage": "Cambiar Foto"
   },
   "auth": {
     "login": "Iniciar Sesión",
@@ -64,29 +66,5 @@
     "email": "Por favor ingresa un correo válido",
     "minLength": "Debe tener al menos {{min}} caracteres",
     "maxLength": "Debe tener como máximo {{max}} caracteres"
-  },
-  "farms": {
-    "title": "Mis Fincas",
-    "addFarm": "Agregar Finca",
-    "editFarm": "Editar Finca",
-    "name": "Nombre de la Finca",
-    "namePlaceholder": "Ingresa el nombre de la finca",
-    "nameRequired": "El nombre de la finca es requerido",
-    "location": "Ubicación",
-    "locationPlaceholder": "Ingresa la ubicación",
-    "noLocation": "Sin ubicación",
-    "image": "Foto de la Finca",
-    "addImage": "Agregar Foto",
-    "changeImage": "Cambiar Foto",
-    "save": "Guardar",
-    "archive": "Archivar Finca",
-    "archiveConfirm": "¿Estás seguro de que quieres archivar esta finca? Ya no aparecerá en tu lista.",
-    "emptyState": "Aún no tienes fincas. ¡Agrega tu primera finca!",
-    "farmCreated": "Finca creada exitosamente",
-    "farmUpdated": "Finca actualizada exitosamente",
-    "farmArchived": "Finca archivada",
-    "notFound": "Finca no encontrada",
-    "createError": "Error al crear la finca. Por favor intenta de nuevo.",
-    "updateError": "Error al actualizar la finca. Por favor intenta de nuevo."
   }
 }
