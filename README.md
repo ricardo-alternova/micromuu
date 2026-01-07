@@ -23,6 +23,12 @@ This project was created for **educational purposes** to demonstrate how to use 
 - **i18n:** i18next (English/Spanish)
 - **Testing:** Jest (unit), Playwright (E2E)
 
+## Security
+
+This project has been reviewed against [CVE-2025-55182, CVE-2025-55184, CVE-2025-55183, and CVE-2025-67779](https://expo.dev/changelog/mitigating-critical-security-vulnerability-in-react-server-components) (React Server Components vulnerabilities). These CVEs only affect projects using experimental RSC or Server Functions. This project is **not affected** as it is a client-side application that does not use `react-server-dom-webpack`, `expo-router`, or React Server Components.
+
+**Recommendation:** Upgrade to Expo SDK 55 when available, as it will include all security patches by default.
+
 ## Features
 
 - Email/password authentication
