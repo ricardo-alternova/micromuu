@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform, Text } from 'react-native';
-import { HelperText } from 'react-native-paper';
+import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { Text, TextInput, Button, HelperText, Surface } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../types/navigation';
-import {
-  CowboyBackground,
-  BrandMark,
-  RanchCard,
-  WesternButton,
-  LeatherInput,
-} from '../components/cowboy';
-import Svg, { Path } from 'react-native-svg';
 
 type LoginScreenProps = {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'Login'>;
@@ -22,32 +14,6 @@ const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
-
-const MailIcon = () => (
-  <Svg width={20} height={20} viewBox="0 0 24 24">
-    <Path
-      d="M3 6 L12 13 L21 6 M3 6 L3 18 L21 18 L21 6 L3 6"
-      stroke="#8B4513"
-      strokeWidth={2}
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const CheckIcon = () => (
-  <Svg width={60} height={60} viewBox="0 0 24 24">
-    <Path
-      d="M5 12 L10 17 L19 7"
-      stroke="#2E7D32"
-      strokeWidth={3}
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
 
 export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const { t } = useTranslation();
@@ -85,165 +51,112 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
   if (linkSent) {
     return (
-      <CowboyBackground variant="parchment">
-        <View style={styles.container}>
-          <View style={styles.content}>
-            <RanchCard variant="parchment">
-              <View style={styles.successContainer}>
-                <View style={styles.checkIconContainer}>
-                  <CheckIcon />
-                </View>
-                <Text style={styles.successTitle}>{t('auth.magicLinkSent')}</Text>
-                <Text style={styles.successDescription}>
-                  {t('auth.magicLinkSentDescription', { email })}
-                </Text>
-                <WesternButton
-                  variant="text"
-                  onPress={() => setLinkSent(false)}
-                  title={t('common.back')}
-                />
-              </View>
-            </RanchCard>
-          </View>
-        </View>
-      </CowboyBackground>
+      <View style={styles.container}>
+        <Surface style={styles.card} elevation={2}>
+          <Text variant="headlineMedium" style={styles.title}>
+            {t('auth.magicLinkSent')}
+          </Text>
+          <Text variant="bodyLarge" style={styles.description}>
+            {t('auth.magicLinkSentDescription', { email })}
+          </Text>
+          <Button mode="text" onPress={() => setLinkSent(false)}>
+            {t('common.back')}
+          </Button>
+        </Surface>
+      </View>
     );
   }
 
   return (
-    <CowboyBackground variant="parchment">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
-        <View style={styles.content}>
-          <View style={styles.logoContainer}>
-            <BrandMark size={100} color="#5D4037" />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <View style={styles.content}>
+        <Text variant="displaySmall" style={styles.logo}>
+          Micromuu
+        </Text>
+
+        <Surface style={styles.card} elevation={2}>
+          <Text variant="headlineMedium" style={styles.title}>
+            {t('auth.login')}
+          </Text>
+
+          <TextInput
+            label={t('auth.email')}
+            placeholder={t('auth.emailPlaceholder')}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoComplete="email"
+            mode="outlined"
+            error={!!error}
+            style={styles.input}
+          />
+          {error && (
+            <HelperText type="error" visible={!!error}>
+              {error}
+            </HelperText>
+          )}
+
+          <Button
+            mode="contained"
+            onPress={handleSubmit}
+            loading={isLoading}
+            disabled={isLoading}
+            style={styles.button}
+          >
+            {t('auth.sendMagicLink')}
+          </Button>
+
+          <View style={styles.footer}>
+            <Text variant="bodyMedium">{t('auth.noAccount')}</Text>
+            <Button mode="text" onPress={() => navigation.navigate('Register')}>
+              {t('auth.registerHere')}
+            </Button>
           </View>
-
-          <RanchCard variant="parchment" style={styles.card}>
-            <Text style={styles.title}>{t('auth.login')}</Text>
-            <Text style={styles.subtitle}>Saddle up and sign in, partner</Text>
-
-            <LeatherInput
-              label={t('auth.email')}
-              placeholder={t('auth.emailPlaceholder')}
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoComplete="email"
-              error={error || undefined}
-              icon={<MailIcon />}
-            />
-
-            <WesternButton
-              variant="primary"
-              onPress={handleSubmit}
-              loading={isLoading}
-              disabled={isLoading}
-              title={t('auth.sendMagicLink')}
-              icon="mail"
-            />
-
-            <View style={styles.footer}>
-              <Text style={styles.footerText}>{t('auth.noAccount')}</Text>
-              <WesternButton
-                variant="text"
-                onPress={() => navigation.navigate('Register')}
-                title={t('auth.registerHere')}
-              />
-            </View>
-          </RanchCard>
-
-          <View style={styles.decorativeText}>
-            <Text style={styles.tagline}>Cattle inventory made simple</Text>
-          </View>
-        </View>
-      </KeyboardAvoidingView>
-    </CowboyBackground>
+        </Surface>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
   },
   content: {
     flex: 1,
     justifyContent: 'center',
     padding: 24,
   },
-  logoContainer: {
-    alignItems: 'center',
+  logo: {
+    textAlign: 'center',
     marginBottom: 32,
+    fontWeight: 'bold',
   },
   card: {
-    marginHorizontal: 0,
+    padding: 24,
+    borderRadius: 12,
   },
   title: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: '#5D4037',
-    textAlign: 'center',
-    marginBottom: 4,
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-  },
-  subtitle: {
-    fontSize: 14,
-    color: '#8B7355',
     textAlign: 'center',
     marginBottom: 24,
-    fontStyle: 'italic',
   },
-  successContainer: {
-    alignItems: 'center',
-    paddingVertical: 16,
-  },
-  checkIconContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#E8F5E9',
-    borderWidth: 3,
-    borderColor: '#2E7D32',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
-  successTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#5D4037',
-    textAlign: 'center',
-    marginBottom: 12,
-  },
-  successDescription: {
-    fontSize: 16,
-    color: '#795548',
+  description: {
     textAlign: 'center',
     marginBottom: 24,
-    lineHeight: 24,
-    paddingHorizontal: 16,
+  },
+  input: {
+    marginBottom: 8,
+  },
+  button: {
+    marginTop: 16,
   },
   footer: {
     alignItems: 'center',
     marginTop: 24,
-  },
-  footerText: {
-    fontSize: 14,
-    color: '#795548',
-  },
-  decorativeText: {
-    marginTop: 32,
-    alignItems: 'center',
-  },
-  tagline: {
-    fontSize: 12,
-    color: '#A0522D',
-    letterSpacing: 3,
-    textTransform: 'uppercase',
-    opacity: 0.7,
   },
 });

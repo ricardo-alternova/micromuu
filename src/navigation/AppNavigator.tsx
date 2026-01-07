@@ -8,7 +8,6 @@ import { RegisterScreen } from '../screens/RegisterScreen';
 import { WelcomeScreen } from '../screens/WelcomeScreen';
 import { AuthStackParamList, MainStackParamList } from '../types/navigation';
 import * as Linking from 'expo-linking';
-import { cowboyTheme } from '../theme';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const MainStack = createNativeStackNavigator<MainStackParamList>();
@@ -29,7 +28,6 @@ const AuthNavigator: React.FC = () => {
     <AuthStack.Navigator
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: cowboyTheme.colors.background },
       }}
     >
       <AuthStack.Screen name="Login" component={LoginScreen} />
@@ -43,7 +41,6 @@ const MainNavigator: React.FC = () => {
     <MainStack.Navigator
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: cowboyTheme.colors.background },
       }}
     >
       <MainStack.Screen name="Welcome" component={WelcomeScreen} />
@@ -53,7 +50,7 @@ const MainNavigator: React.FC = () => {
 
 const LoadingScreen: React.FC = () => (
   <View style={styles.loadingContainer}>
-    <ActivityIndicator size="large" color={cowboyTheme.colors.primary} />
+    <ActivityIndicator size="large" />
   </View>
 );
 
@@ -64,7 +61,6 @@ export const AppNavigator: React.FC = () => {
     return <LoadingScreen />;
   }
 
-  // Show auth screens if not authenticated
   if (!isAuthenticated) {
     return (
       <NavigationContainer linking={linking}>
@@ -73,7 +69,6 @@ export const AppNavigator: React.FC = () => {
     );
   }
 
-  // Show welcome screen for new users or users who just registered
   if (isNewUser || hasProfile) {
     return (
       <NavigationContainer linking={linking}>
@@ -82,7 +77,6 @@ export const AppNavigator: React.FC = () => {
     );
   }
 
-  // Fallback to main navigator
   return (
     <NavigationContainer linking={linking}>
       <MainNavigator />
@@ -95,6 +89,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFF8F0',
   },
 });
