@@ -9,9 +9,8 @@ interface AuthContextType {
   isAuthenticated: boolean;
   hasProfile: boolean | null;
   isNewUser: boolean;
-  login: (email: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   register: (data: RegistrationData) => Promise<void>;
-  handleEmailLink: (url: string) => Promise<boolean>;
   logout: () => Promise<void>;
   clearNewUserFlag: () => void;
 }

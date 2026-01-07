@@ -14,6 +14,7 @@ interface FormErrors {
   name?: string;
   lastName?: string;
   email?: string;
+  password?: string;
 }
 
 const validateEmail = (email: string): boolean => {
@@ -28,9 +29,11 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [linkSent, setLinkSent] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -49,6 +52,14 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
       newErrors.email = t('auth.invalidEmail');
     }
 
+    if (!password) {
+      newErrors.password = t('auth.passwordRequired');
+    } else if (password.length < 6) {
+      newErrors.password = t('auth.passwordTooShort');
+    } else if (password !== confirmPassword) {
+      newErrors.password = t('auth.passwordMismatch');
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -59,32 +70,19 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
     setIsLoading(true);
 
     try {
-      await register({ name, lastName, email });
-      setLinkSent(true);
-    } catch (err) {
-      setErrors({ email: t('registration.error') });
+      await register({ name, lastName, email, password });
+    } catch (err: any) {
+      if (err.code === 'auth/email-already-in-use') {
+        setErrors({ email: t('auth.emailInUse') });
+      } else if (err.code === 'auth/weak-password') {
+        setErrors({ password: t('auth.weakPassword') });
+      } else {
+        setErrors({ email: t('registration.error') });
+      }
     } finally {
       setIsLoading(false);
     }
   };
-
-  if (linkSent) {
-    return (
-      <View style={styles.container}>
-        <Surface style={styles.card} elevation={2}>
-          <Text variant="headlineMedium" style={styles.title}>
-            {t('auth.magicLinkSent')}
-          </Text>
-          <Text variant="bodyLarge" style={styles.description}>
-            {t('auth.magicLinkSentDescription', { email })}
-          </Text>
-          <Button mode="text" onPress={() => setLinkSent(false)}>
-            {t('common.back')}
-          </Button>
-        </Surface>
-      </View>
-    );
-  }
 
   return (
     <KeyboardAvoidingView
@@ -154,6 +152,41 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               </HelperText>
             )}
 
+            <TextInput
+              label={t('auth.password')}
+              placeholder={t('auth.passwordPlaceholder')}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+              autoCapitalize="none"
+              mode="outlined"
+              error={!!errors.password}
+              style={styles.input}
+              right={
+                <TextInput.Icon
+                  icon={showPassword ? 'eye-off' : 'eye'}
+                  onPress={() => setShowPassword(!showPassword)}
+                />
+              }
+            />
+
+            <TextInput
+              label={t('auth.confirmPassword')}
+              placeholder={t('auth.confirmPasswordPlaceholder')}
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry={!showPassword}
+              autoCapitalize="none"
+              mode="outlined"
+              error={!!errors.password}
+              style={styles.input}
+            />
+            {errors.password && (
+              <HelperText type="error" visible={!!errors.password}>
+                {errors.password}
+              </HelperText>
+            )}
+
             <Button
               mode="contained"
               onPress={handleSubmit}
@@ -203,12 +236,8 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     opacity: 0.7,
   },
-  description: {
-    textAlign: 'center',
-    marginBottom: 24,
-  },
   input: {
-    marginBottom: 8,
+    marginBottom: 4,
   },
   button: {
     marginTop: 16,

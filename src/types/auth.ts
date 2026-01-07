@@ -10,8 +10,5 @@ export interface RegistrationData {
   name: string;
   lastName: string;
   email: string;
-}
-
-export interface PendingRegistration extends RegistrationData {
-  timestamp: number;
+  password: string;
 }

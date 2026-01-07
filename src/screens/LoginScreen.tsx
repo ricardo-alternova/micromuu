@@ -20,9 +20,10 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const { login } = useAuthContext();
 
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [linkSent, setLinkSent] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async () => {
     setError(null);
@@ -37,35 +38,29 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       return;
     }
 
+    if (!password) {
+      setError(t('auth.passwordRequired'));
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      await login(email);
-      setLinkSent(true);
-    } catch (err) {
-      setError(t('auth.signInError'));
+      await login(email, password);
+    } catch (err: any) {
+      if (err.code === 'auth/invalid-credential') {
+        setError(t('auth.invalidCredentials'));
+      } else if (err.code === 'auth/user-not-found') {
+        setError(t('auth.userNotFound'));
+      } else if (err.code === 'auth/wrong-password') {
+        setError(t('auth.wrongPassword'));
+      } else {
+        setError(t('auth.signInError'));
+      }
     } finally {
       setIsLoading(false);
     }
   };
-
-  if (linkSent) {
-    return (
-      <View style={styles.container}>
-        <Surface style={styles.card} elevation={2}>
-          <Text variant="headlineMedium" style={styles.title}>
-            {t('auth.magicLinkSent')}
-          </Text>
-          <Text variant="bodyLarge" style={styles.description}>
-            {t('auth.magicLinkSentDescription', { email })}
-          </Text>
-          <Button mode="text" onPress={() => setLinkSent(false)}>
-            {t('common.back')}
-          </Button>
-        </Surface>
-      </View>
-    );
-  }
 
   return (
     <KeyboardAvoidingView
@@ -94,6 +89,25 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             error={!!error}
             style={styles.input}
           />
+
+          <TextInput
+            label={t('auth.password')}
+            placeholder={t('auth.passwordPlaceholder')}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}
+            autoCapitalize="none"
+            mode="outlined"
+            error={!!error}
+            style={styles.input}
+            right={
+              <TextInput.Icon
+                icon={showPassword ? 'eye-off' : 'eye'}
+                onPress={() => setShowPassword(!showPassword)}
+              />
+            }
+          />
+
           {error && (
             <HelperText type="error" visible={!!error}>
               {error}
@@ -107,7 +121,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             disabled={isLoading}
             style={styles.button}
           >
-            {t('auth.sendMagicLink')}
+            {t('auth.signIn')}
           </Button>
 
           <View style={styles.footer}>
@@ -145,15 +159,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 24,
   },
-  description: {
-    textAlign: 'center',
-    marginBottom: 24,
-  },
   input: {
-    marginBottom: 8,
+    marginBottom: 12,
   },
   button: {
-    marginTop: 16,
+    marginTop: 8,
   },
   footer: {
     alignItems: 'center',

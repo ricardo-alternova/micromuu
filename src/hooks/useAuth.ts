@@ -2,63 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { User } from 'firebase/auth';
 import {
   subscribeToAuthState,
-  sendMagicLink,
-  completeSignIn,
+  signIn,
+  signUp,
   signOut,
-  isValidSignInLink,
-  getStoredEmail,
 } from '../services/auth';
-import { createProfile, getProfile, profileExists } from '../services/profile';
-import { AuthState, RegistrationData, PendingRegistration } from '../types/auth';
-import * as SecureStore from 'expo-secure-store';
-import { Platform } from 'react-native';
-
-const PENDING_REGISTRATION_KEY = 'pendingRegistration';
-
-// Store pending registration data
-const storePendingRegistration = async (data: RegistrationData): Promise<void> => {
-  const pendingData: PendingRegistration = {
-    ...data,
-    timestamp: Date.now(),
-  };
-
-  if (Platform.OS === 'web') {
-    localStorage.setItem(PENDING_REGISTRATION_KEY, JSON.stringify(pendingData));
-  } else {
-    await SecureStore.setItemAsync(PENDING_REGISTRATION_KEY, JSON.stringify(pendingData));
-  }
-};
-
-// Get pending registration data
-const getPendingRegistration = async (): Promise<PendingRegistration | null> => {
-  let data: string | null = null;
-
-  if (Platform.OS === 'web') {
-    data = localStorage.getItem(PENDING_REGISTRATION_KEY);
-  } else {
-    data = await SecureStore.getItemAsync(PENDING_REGISTRATION_KEY);
-  }
-
-  if (!data) return null;
-
-  const parsed = JSON.parse(data) as PendingRegistration;
-  // Expire after 1 hour
-  if (Date.now() - parsed.timestamp > 3600000) {
-    await clearPendingRegistration();
-    return null;
-  }
-
-  return parsed;
-};
-
-// Clear pending registration data
-const clearPendingRegistration = async (): Promise<void> => {
-  if (Platform.OS === 'web') {
-    localStorage.removeItem(PENDING_REGISTRATION_KEY);
-  } else {
-    await SecureStore.deleteItemAsync(PENDING_REGISTRATION_KEY);
-  }
-};
+import { createProfile, profileExists } from '../services/profile';
+import { AuthState, RegistrationData } from '../types/auth';
 
 export const useAuth = () => {
   const [authState, setAuthState] = useState<AuthState>({
@@ -75,20 +24,6 @@ export const useAuth = () => {
       if (user) {
         const exists = await profileExists(user.uid);
         setHasProfile(exists);
-
-        // Check for pending registration
-        const pending = await getPendingRegistration();
-        if (!exists && pending) {
-          // Complete registration by creating profile
-          await createProfile(user.uid, {
-            name: pending.name,
-            lastName: pending.lastName,
-            email: pending.email,
-          });
-          await clearPendingRegistration();
-          setHasProfile(true);
-          setIsNewUser(true);
-        }
       } else {
         setHasProfile(null);
       }
@@ -103,30 +38,24 @@ export const useAuth = () => {
     return unsubscribe;
   }, []);
 
-  // Send magic link for login
-  const login = useCallback(async (email: string): Promise<void> => {
-    await sendMagicLink(email);
+  // Login with email and password
+  const login = useCallback(async (email: string, password: string): Promise<void> => {
+    await signIn(email, password);
   }, []);
 
-  // Register new user (sends magic link and stores pending data)
+  // Register new user
   const register = useCallback(async (data: RegistrationData): Promise<void> => {
-    await storePendingRegistration(data);
-    await sendMagicLink(data.email);
-  }, []);
+    const user = await signUp(data.email, data.password);
 
-  // Complete sign-in from email link
-  const handleEmailLink = useCallback(async (url: string): Promise<boolean> => {
-    if (!isValidSignInLink(url)) {
-      return false;
-    }
+    // Create profile after successful registration
+    await createProfile(user.uid, {
+      name: data.name,
+      lastName: data.lastName,
+      email: data.email,
+    });
 
-    const storedEmail = await getStoredEmail();
-    if (storedEmail) {
-      await completeSignIn(url, storedEmail);
-      return true;
-    }
-
-    return false;
+    setHasProfile(true);
+    setIsNewUser(true);
   }, []);
 
   // Sign out
@@ -147,7 +76,6 @@ export const useAuth = () => {
     isNewUser,
     login,
     register,
-    handleEmailLink,
     logout,
     clearNewUserFlag,
   };
