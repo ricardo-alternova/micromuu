@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, Surface } from 'react-native-paper';
+import { Text, Button, Surface, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { getProfile, UserProfile } from '../services/profile';
@@ -8,6 +8,7 @@ import { getProfile, UserProfile } from '../services/profile';
 export const WelcomeScreen: React.FC = () => {
   const { t } = useTranslation();
   const { user, clearNewUserFlag, logout } = useAuthContext();
+  const theme = useTheme();
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
   useEffect(() => {
@@ -30,9 +31,9 @@ export const WelcomeScreen: React.FC = () => {
   const userName = profile?.name || '';
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
-        <Text variant="displaySmall" style={styles.logo}>
+        <Text variant="displaySmall" style={[styles.logo, { color: theme.colors.primary }]}>
           Micromuu
         </Text>
 
@@ -73,7 +74,6 @@ export const WelcomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
   content: {
     flex: 1,
