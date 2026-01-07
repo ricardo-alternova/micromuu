@@ -6,6 +6,9 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { LoginScreen } from '../screens/LoginScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
 import { WelcomeScreen } from '../screens/WelcomeScreen';
+import { DashboardScreen } from '../screens/DashboardScreen';
+import { AddFarmScreen } from '../screens/AddFarmScreen';
+import { EditFarmScreen } from '../screens/EditFarmScreen';
 import { AuthStackParamList, MainStackParamList } from '../types/navigation';
 import * as Linking from 'expo-linking';
 
@@ -19,6 +22,9 @@ const linking = {
       Login: 'auth/callback',
       Register: 'register',
       Welcome: 'welcome',
+      Dashboard: 'dashboard',
+      AddFarm: 'farms/add',
+      EditFarm: 'farms/:farmId',
     },
   },
 };
@@ -36,14 +42,18 @@ const AuthNavigator: React.FC = () => {
   );
 };
 
-const MainNavigator: React.FC = () => {
+const MainNavigator: React.FC<{ initialRoute: 'Welcome' | 'Dashboard' }> = ({ initialRoute }) => {
   return (
     <MainStack.Navigator
+      initialRouteName={initialRoute}
       screenOptions={{
         headerShown: false,
       }}
     >
       <MainStack.Screen name="Welcome" component={WelcomeScreen} />
+      <MainStack.Screen name="Dashboard" component={DashboardScreen} />
+      <MainStack.Screen name="AddFarm" component={AddFarmScreen} />
+      <MainStack.Screen name="EditFarm" component={EditFarmScreen} />
     </MainStack.Navigator>
   );
 };
@@ -69,17 +79,12 @@ export const AppNavigator: React.FC = () => {
     );
   }
 
-  if (isNewUser || hasProfile) {
-    return (
-      <NavigationContainer linking={linking}>
-        <MainNavigator />
-      </NavigationContainer>
-    );
-  }
+  // New users see Welcome screen first, returning users go to Dashboard
+  const initialRoute = isNewUser ? 'Welcome' : 'Dashboard';
 
   return (
     <NavigationContainer linking={linking}>
-      <MainNavigator />
+      <MainNavigator initialRoute={initialRoute} />
     </NavigationContainer>
   );
 };

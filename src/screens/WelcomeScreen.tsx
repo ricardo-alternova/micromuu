@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, Surface, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { getProfile, UserProfile } from '../services/profile';
+import { MainStackParamList } from '../types/navigation';
 
-export const WelcomeScreen: React.FC = () => {
+type WelcomeScreenProps = {
+  navigation: NativeStackNavigationProp<MainStackParamList, 'Welcome'>;
+};
+
+export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   const { t } = useTranslation();
   const { user, clearNewUserFlag, logout } = useAuthContext();
   const theme = useTheme();
@@ -57,7 +63,10 @@ export const WelcomeScreen: React.FC = () => {
 
           <Button
             mode="contained"
-            onPress={() => clearNewUserFlag()}
+            onPress={() => {
+              clearNewUserFlag();
+              navigation.replace('Dashboard');
+            }}
             style={styles.button}
           >
             {t('welcome.getStarted')}

@@ -6,6 +6,9 @@ export type AuthStackParamList = {
 
 export type MainStackParamList = {
   Welcome: undefined;
+  Dashboard: undefined;
+  AddFarm: undefined;
+  EditFarm: { farmId: string };
   Home: undefined;
 };
 

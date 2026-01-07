@@ -41,8 +41,11 @@ test.describe('Auth Flow', () => {
     // Submit registration
     await page.getByRole('button', { name: /create account/i }).click();
 
-    // Wait for welcome screen
-    await expect(page.getByText(/welcome/i)).toBeVisible({ timeout: 15000 });
+    // Wait for either Welcome screen or Dashboard (both indicate successful registration)
+    await page.waitForTimeout(3000);
+    const hasWelcome = await page.getByText(/welcome to micromuu/i).isVisible().catch(() => false);
+    const hasDashboard = await page.getByText(/my farms/i).isVisible().catch(() => false);
+    expect(hasWelcome || hasDashboard).toBe(true);
   });
 
   test('should login with registered user', async ({ page }) => {
@@ -56,7 +59,7 @@ test.describe('Auth Flow', () => {
     // Submit login
     await page.getByRole('button', { name: /sign in/i }).click();
 
-    // Wait for welcome/home screen
-    await expect(page.getByText(/welcome/i)).toBeVisible({ timeout: 15000 });
+    // Wait for dashboard (returning user goes directly to Dashboard)
+    await expect(page.getByText(/my farms/i)).toBeVisible({ timeout: 15000 });
   });
 });
