@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Text,
   Surface,
@@ -103,14 +104,14 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ navigation }) 
 
   if (isLoading) {
     return (
-      <View style={[styles.container, styles.centered, { backgroundColor: theme.colors.background }]}>
+      <SafeAreaView style={[styles.container, styles.centered, { backgroundColor: theme.colors.background }]}>
         <ActivityIndicator size="large" />
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.header}>
         <Text variant="headlineMedium" style={styles.title}>
           {t('farms.title')}
@@ -145,7 +146,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ navigation }) 
         onPress={() => navigation.navigate('AddFarm')}
         label={t('farms.addFarm')}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
