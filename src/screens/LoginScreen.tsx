@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, KeyboardAvoidingView, Platform, TextInput as RNTextInput } from 'react-native';
 import { Text, TextInput, Button, HelperText, Surface, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../hooks/useAuthContext';
@@ -25,6 +25,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+
+  const passwordRef = useRef<RNTextInput>(null);
 
   const handleSubmit = async () => {
     setError(null);
@@ -92,9 +94,12 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
               style={styles.input}
               returnKeyType="next"
               autoFocus
+              onSubmitEditing={() => passwordRef.current?.focus()}
+              blurOnSubmit={false}
             />
 
             <TextInput
+              ref={passwordRef}
               label={t('auth.password')}
               placeholder={t('auth.passwordPlaceholder')}
               value={password}

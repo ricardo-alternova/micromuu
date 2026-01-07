@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, TextInput as RNTextInput } from 'react-native';
 import { Text, TextInput, Button, HelperText, Surface, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../hooks/useAuthContext';
@@ -35,6 +35,11 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [showPassword, setShowPassword] = useState(false);
+
+  const lastNameRef = useRef<RNTextInput>(null);
+  const emailRef = useRef<RNTextInput>(null);
+  const passwordRef = useRef<RNTextInput>(null);
+  const confirmPasswordRef = useRef<RNTextInput>(null);
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -114,6 +119,8 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               style={styles.input}
               returnKeyType="next"
               autoFocus
+              onSubmitEditing={() => lastNameRef.current?.focus()}
+              blurOnSubmit={false}
             />
             {errors.name && (
               <HelperText type="error" visible={!!errors.name}>
@@ -122,6 +129,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
             )}
 
             <TextInput
+              ref={lastNameRef}
               label={t('registration.lastName')}
               placeholder={t('registration.lastNamePlaceholder')}
               value={lastName}
@@ -131,6 +139,8 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               error={!!errors.lastName}
               style={styles.input}
               returnKeyType="next"
+              onSubmitEditing={() => emailRef.current?.focus()}
+              blurOnSubmit={false}
             />
             {errors.lastName && (
               <HelperText type="error" visible={!!errors.lastName}>
@@ -139,6 +149,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
             )}
 
             <TextInput
+              ref={emailRef}
               label={t('auth.email')}
               placeholder={t('auth.emailPlaceholder')}
               value={email}
@@ -150,6 +161,8 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               error={!!errors.email}
               style={styles.input}
               returnKeyType="next"
+              onSubmitEditing={() => passwordRef.current?.focus()}
+              blurOnSubmit={false}
             />
             {errors.email && (
               <HelperText type="error" visible={!!errors.email}>
@@ -158,6 +171,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
             )}
 
             <TextInput
+              ref={passwordRef}
               label={t('auth.password')}
               placeholder={t('auth.passwordPlaceholder')}
               value={password}
@@ -168,6 +182,8 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
               error={!!errors.password}
               style={styles.input}
               returnKeyType="next"
+              onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+              blurOnSubmit={false}
               right={
                 <TextInput.Icon
                   icon={showPassword ? 'eye-off' : 'eye'}
@@ -177,6 +193,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
             />
 
             <TextInput
+              ref={confirmPasswordRef}
               label={t('auth.confirmPassword')}
               placeholder={t('auth.confirmPasswordPlaceholder')}
               value={confirmPassword}
