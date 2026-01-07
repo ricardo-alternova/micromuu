@@ -21,7 +21,7 @@ _Stack:_
 _Tasks:_
 
 - Create the Expo project and the structure of the directories.
-- create a login. I want to use passwordless login.
+- create a login with email and password authentication.
 - create a registration form with these fields:
 
 1. Name

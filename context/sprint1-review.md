@@ -4,14 +4,14 @@
 
 Sprint 1 successfully implemented the foundational features of the Micromuu cattle inventory app:
 
-- Expo project setup with TypeScript
+- Expo project setup with TypeScript (Expo SDK 54)
 - Firebase integration (Auth, Firestore, Storage)
-- Passwordless authentication via magic links
+- Email/password authentication with persistence
 - User registration with profile creation
 - Welcome screen for new users
 - Bilingual support (English/Spanish)
-- Cowboy-themed UI design
-- Unit and E2E test framework
+- Cowboy-themed UI design ("Dusty Trail" Material Design 3 theme)
+- Unit tests (28) and E2E tests (2) with Playwright
 
 ## Step-by-Step Setup Guide
 
@@ -91,25 +91,18 @@ npm run android
 npm run web
 ```
 
-### 6. Configure Email Link Authentication
+### 6. Configure Email/Password Authentication
 
 In Firebase Console:
 1. Go to **Authentication > Sign-in method**
 2. Click on **Email/Password** provider
-3. Enable **"Email link (passwordless sign-in)"**
+3. Enable **"Email/Password"** (not the passwordless option)
 4. Go to **Authentication > Settings > Authorized domains**
 5. Add authorized domains:
    - `localhost` (for development)
    - Your production domain (when deploying)
 
-**Note:** Firebase Dynamic Links is deprecated. For this app:
-- **Web**: Email links work directly - users click the link and are authenticated
-- **Mobile (Expo Go)**: Users should test via the web version, or copy the link from email and open it in the app
-- **Production mobile**: Consider implementing Universal Links (iOS) / App Links (Android) with your own domain
-
 ### 7. Testing the App
-
-**Recommended: Test on Web first** (easiest flow for email links)
 
 ```bash
 npm run web
@@ -118,23 +111,24 @@ npm run web
 1. **Registration Flow:**
    - Open the app (http://localhost:8081)
    - Click "Register here"
-   - Fill in name, last name, and email
+   - Fill in name, last name, email, password, and confirm password
    - Click "Create Account"
-   - Check your email for the magic link
-   - Click the link - it will open in browser and complete registration
-   - You should see the Welcome screen
+   - You should see the Welcome screen immediately after registration
 
 2. **Login Flow:**
    - Open the app
-   - Enter your registered email
-   - Tap "Send Magic Link"
-   - Check your email and click the link
-   - You should be logged in
+   - Enter your registered email and password
+   - Click "Sign In"
+   - You should be logged in and see the Welcome screen
 
 3. **Language Testing:**
-   - Change your device language to Spanish
+   - Change your device/browser language to Spanish
    - Restart the app
    - All text should now be in Spanish
+
+4. **Tab Navigation:**
+   - Use Tab key to navigate between form fields
+   - Press Enter on the last field to submit the form
 
 ---
 
@@ -193,32 +187,33 @@ npm test
 
 ### E2E Tests (Playwright)
 
-E2E tests are configured in `/e2e/auth.spec.ts`. To run:
+E2E tests are configured in `/e2e/auth.spec.ts` with automatic test user cleanup. To run:
 
 ```bash
 # Install Playwright browsers (first time only)
 npx playwright install
 
-# Run E2E tests
+# Run E2E tests (automatically starts web server and cleans up test user)
 npm run test:e2e
+
+# Run with UI for debugging
+npm run test:e2e:ui
+
+# Manually clean up test user
+npm run test:cleanup
 ```
 
-**Note:** E2E tests require the web version running (`npm run web` must be started first).
+**Test User:** `ricardo+test@alternova.com` (automatically created and deleted by tests)
+
+**E2E Test Setup:**
+- Global setup runs `e2e/cleanup-test-user.ts` before each test run
+- Uses Firebase Admin SDK to delete test user from Auth and Firestore
+- Requires `GOOGLE_APPLICATION_CREDENTIALS` pointing to service account JSON
 
 | Test | Description |
 |------|-------------|
-| Display login screen | Verifies default screen shows login |
-| Email input visible | Confirms email field is present |
-| Empty email validation | Shows error when submitting empty |
-| Invalid email validation | Shows error for invalid format |
-| Navigate to registration | Tests navigation between screens |
-| Registration form fields | Verifies all form fields present |
-| Registration validation | Tests empty field validation |
-| Navigate to login | Tests return navigation |
-| Valid data acceptance | Confirms form accepts valid input |
-| Brand mark display | Verifies logo is visible |
-| Cowboy styling | Confirms themed appearance |
-| Responsive design | Tests mobile viewport |
+| Register and login successfully | Full registration flow: fills form, creates account, verifies welcome screen |
+| Login with registered user | Login flow: enters credentials, verifies welcome screen |
 
 ---
 
@@ -243,20 +238,19 @@ Test files             |   100%  |   100%   |   100%  |   100%  |
 ## Files Created/Modified
 
 ### New Files
-- `src/services/firebase.ts` - Firebase initialization
-- `src/services/auth.ts` - Authentication service
+- `src/services/firebase.ts` - Firebase initialization with platform-specific auth persistence
+- `src/services/auth.ts` - Authentication service (email/password)
 - `src/services/profile.ts` - Profile management
 - `src/hooks/useAuth.ts` - Auth state hook
 - `src/hooks/useAuthContext.tsx` - Auth context provider
 - `src/i18n/index.ts` - i18n configuration
 - `src/i18n/en.json` - English translations
 - `src/i18n/es.json` - Spanish translations
-- `src/screens/LoginScreen.tsx` - Login UI
-- `src/screens/RegisterScreen.tsx` - Registration UI
+- `src/screens/LoginScreen.tsx` - Login UI with email/password
+- `src/screens/RegisterScreen.tsx` - Registration UI with 5 fields
 - `src/screens/WelcomeScreen.tsx` - Welcome UI
 - `src/navigation/AppNavigator.tsx` - Navigation setup
-- `src/theme/index.ts` - Cowboy theme
-- `src/components/cowboy/*` - Custom cowboy UI components
+- `src/theme/index.ts` - "Dusty Trail" cowboy theme (MD3)
 - `src/types/auth.ts` - TypeScript types
 - `src/types/navigation.ts` - Navigation types
 - `firestore.rules` - Firestore security rules
@@ -264,11 +258,13 @@ Test files             |   100%  |   100%   |   100%  |   100%  |
 - `.env.example` - Environment template
 - `jest.config.js` - Jest configuration
 - `playwright.config.ts` - Playwright configuration
-- `e2e/auth.spec.ts` - E2E tests
+- `e2e/auth.spec.ts` - E2E tests for auth flow
+- `e2e/cleanup-test-user.ts` - Test user cleanup script
+- `e2e/global-setup.ts` - Playwright global setup
 - `LICENSE` - O'Saasy license
 
 ### Configuration
-- `app.json` - Updated with scheme, bundle IDs, deep linking
+- `app.json` - Updated with scheme, bundle IDs, newArchEnabled
 - `package.json` - Added scripts and dependencies
 - `.gitignore` - Added `.env`
 - `CLAUDE.md` - Project documentation
@@ -277,10 +273,10 @@ Test files             |   100%  |   100%   |   100%  |   100%  |
 
 ## Known Limitations
 
-1. **Email Link on Mobile:** Deep linking for email magic links requires additional native configuration for production builds
-2. **Offline Support:** Firestore offline persistence is enabled but not fully tested
-3. **Push Notifications:** Not implemented in Sprint 1
-4. **Profile Photos:** Storage rules ready but UI not implemented
+1. **Offline Support:** Firestore offline persistence is enabled but not fully tested
+2. **Push Notifications:** Not implemented in Sprint 1
+3. **Profile Photos:** Storage rules ready but UI not implemented
+4. **Desktop Layout:** Forms are constrained to 400px max-width for better desktop experience
 
 ---
 

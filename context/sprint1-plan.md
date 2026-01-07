@@ -1,7 +1,7 @@
 # Sprint 1 - Implementation Plan
 
 ## Overview
-Set up the Micromuu cattle inventory app with Expo, Firebase authentication (passwordless), user registration, and bilingual support (English/Spanish).
+Set up the Micromuu cattle inventory app with Expo, Firebase authentication (email/password), user registration, and bilingual support (English/Spanish).
 
 ## Phase 1: Project Setup
 
@@ -48,8 +48,8 @@ Set up the Micromuu cattle inventory app with Expo, Firebase authentication (pas
   - Prevent direct user creation without authentication
 
 ### 2.3 Authentication Setup
-- Configure Firebase Auth for email link (passwordless) sign-in
-- Set up deep linking for email link handling
+- Configure Firebase Auth for email/password sign-in
+- Set up auth persistence with AsyncStorage for React Native
 
 ## Phase 3: Internationalization
 
@@ -78,15 +78,16 @@ Set up the Micromuu cattle inventory app with Expo, Firebase authentication (pas
 
 ### 4.2 Login Screen
 - Email input field
-- "Send magic link" button
+- Password input field with show/hide toggle
+- "Sign In" button
 - Link to registration for new users
-- Handle email link callback
+- Form validation and error handling
 
 ### 4.3 Registration Screen
-- Form fields: Name, Last Name, Email
-- Form validation
-- Submit sends magic link and stores pending profile data
-- Handle email link callback to complete registration
+- Form fields: Name, Last Name, Email, Password, Confirm Password
+- Form validation (required fields, email format, password match, min length)
+- Submit creates user and profile in one flow
+- Automatic login after successful registration
 
 ### 4.4 Profile Creation
 - On successful authentication after registration:
@@ -133,9 +134,9 @@ Set up the Micromuu cattle inventory app with Expo, Firebase authentication (pas
 - Language switching verification
 
 ## Deliverables
-1. Fully configured Expo project
-2. Working passwordless authentication
-3. Registration with profile creation
-4. Bilingual support (EN/ES)
-5. Cowboy-styled UI
-6. Test suite with coverage report
+1. Fully configured Expo project with Expo SDK 54
+2. Working email/password authentication with Firebase
+3. Registration with profile creation in Firestore
+4. Bilingual support (EN/ES) with device locale detection
+5. Cowboy-styled UI with Material Design 3 "Dusty Trail" theme
+6. Test suite: 28 unit tests + 2 E2E tests with Playwright
