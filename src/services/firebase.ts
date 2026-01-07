@@ -1,5 +1,7 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import { getAuth, initializeAuth, Auth } from 'firebase/auth';
+// @ts-expect-error - getReactNativePersistence is exported but not in web types
+import { getReactNativePersistence } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,7 +20,7 @@ const firebaseConfig = {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 // Initialize Auth with persistence
-let auth;
+let auth: Auth;
 if (Platform.OS === 'web') {
   auth = getAuth(app);
 } else {
